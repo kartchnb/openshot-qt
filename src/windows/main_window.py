@@ -1748,6 +1748,28 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 # Remove track
                 m.delete()
 
+    def actionRemoveAllMarkers_trigger(self, event):
+        log.info('actionRemoveAllMarkers_trigger')
+
+        marker = Marker.getAll()
+        for m in marker:
+            # Remove track
+            m.delete()
+
+    def actionRemoveAllOtherMarkers_trigger(self, event):
+        log.info('actionRemoveAllOtherMarkers_trigger')
+
+        marker = Marker.getAll()
+        for m in marker:
+            match = False
+            for marker_id in self.selected_markers:
+                if (m.id == marker_id):
+                    match = True
+                    break
+            if (match == False):
+                # Remove track
+                m.delete()
+
     def actionTimelineZoomIn_trigger(self, event):
         self.sliderZoom.setValue(self.sliderZoom.value() - self.sliderZoom.singleStep())
 
