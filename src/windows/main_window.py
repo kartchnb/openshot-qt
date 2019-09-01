@@ -1813,6 +1813,27 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
             label = m.data['label']
 
         return label
+        
+    def actionChangeMarkerColor_trigger(self, event):
+        """ Callback to change the color of a marker """
+        log.info('actionChangeMarkerColor')
+
+        # Define the allowed colors
+        colors = ('blue', 'green', 'purple', 'red', 'yellow')
+        
+        # Retrieve the marker object
+        marker_id = self.selected_markers[0]
+        selected_marker = Marker.get(id=marker_id)
+        
+        # Determine the current marker color
+        current_color = selected_marker.data['icon'].replace('.png', '')
+        current_color_index = colors.index(current_color)
+            
+        # Prompt the user to select the new marker color
+        new_color, ok = QInputDialog.getItem(self, 'Change Marker Color', 'Colors', colors, current_color_index, False)
+        if ok:
+            selected_marker.data['icon'] = '%s.png' % (new_color)
+            selected_marker.save()            
                 
     def actionTimelineZoomIn_trigger(self, event):
         self.sliderZoom.setValue(self.sliderZoom.value() - self.sliderZoom.singleStep())

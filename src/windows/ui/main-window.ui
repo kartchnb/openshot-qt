@@ -1412,7 +1412,7 @@
   <action name="actionNameMarker">
    <property name="icon">
     <iconset resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/gtk-edit.svg</normaloff>:/icons/Humanity/actions/16/gtk-edit.svg</iconset>
+     <normaloff>:/icons/Humanity/stock/16/stock_notes.svg</normaloff>:/icons/Humanity/stock/16/stock_notes.svg</iconset>
    </property>
    <property name="text">
     <string>Name Marker</string>
@@ -1424,13 +1424,25 @@
   <action name="actionRenameMarker">
    <property name="icon">
     <iconset resource="../../images/openshot.qrc">
-     <normaloff>:/icons/Humanity/actions/16/gtk-edit.svg</normaloff>:/icons/Humanity/actions/16/gtk-edit.svg</iconset>
+     <normaloff>:/icons/Humanity/stock/16/stock_notes.svg</normaloff>:/icons/Humanity/stock/16/stock_notes.svg</iconset>
    </property>
    <property name="text">
     <string>Rename Marker</string>
    </property>
    <property name="toolTip">
     <string>Rename this Marker</string>
+   </property>
+  </action>
+  <action name="actionChangeMarkerColor">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/custom/marker.png</normaloff>:/icons/Humanity/actions/custom/marker.png</iconset>
+   </property>
+   <property name="text">
+    <string>Change Marker Color</string>
+   </property>
+   <property name="toolTip">
+    <string>Change the color of this marker</string>
    </property>
   </action>
   <action name="actionAddTrackAbove">
