@@ -1773,9 +1773,9 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 # Remove the marker
                 marker.delete()
 
-    def actionRenameMarker_trigger(self, event):
-        """ Callback to rename a marker"""
-        log.info('actionRenameMarker_trigger')
+    def actionNameMarker_trigger(self, event):
+        """ Callback to name a marker"""
+        log.info('actionNameMarker_trigger')
 
         # Get translation function
         _ = get_app()._tr
@@ -1788,13 +1788,20 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
         current_marker_name = selected_marker.data["label"]
 
         # Get the new name from the user
-        new_marker_name, ok = QInputDialog.getText(self, _('Rename Marker'), _('Marker Name:'), text=current_marker_name)
+        new_marker_name, ok = QInputDialog.getText(self, _('Name Marker'), _('Marker Name:'), text=current_marker_name)
         
         # Update the marker name
         if ok:
             # Update the marker name
             selected_marker.data["label"] = new_marker_name
             selected_marker.save()
+
+    def actionRenameMarker_trigger(self, event):
+        """ Callback to rename a marker """
+        log.info('actionNameMarker_trigger')
+        
+        # Reuse the functionality of the Name Marker action
+        self.actionNameMarker_trigger(event)
 
     def getMarkerName(self, marker_id):
         """ Returns the name of the indicated marker """
