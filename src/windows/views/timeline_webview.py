@@ -2498,6 +2498,9 @@ class TimelineWebView(QWebView, updates.UpdateInterface):
             self.window.selected_markers = [marker_id]
 
         menu = QMenu(self)
+        if name != "":
+            menu.addSection('Marker Name: %s' % (name))
+        menu.addAction(self.window.actionRenameMarker)
         menu.addAction(self.window.actionRemoveMarker)
         menu.addAction(self.window.actionRemoveAllMarkers)
         menu.addAction(self.window.actionRemoveAllOtherMarkers)

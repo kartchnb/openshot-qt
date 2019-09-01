@@ -1203,7 +1203,7 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
 
         # Look for existing Marker
         marker = Marker()
-        marker.data = {"position": position, "icon": "blue.png"}
+        marker.data = {"position": position, "icon": "blue.png", "label": ""}
         marker.save()
 
     def actionPreviousMarker_trigger(self, event):
@@ -1749,27 +1749,64 @@ class MainWindow(QMainWindow, updates.UpdateWatcher):
                 m.delete()
 
     def actionRemoveAllMarkers_trigger(self, event):
+        """ Callback to remove all defined markers """
         log.info('actionRemoveAllMarkers_trigger')
 
-        marker = Marker.getAll()
-        for m in marker:
-            # Remove track
-            m.delete()
+        # Iterate over all defined markers
+        markers = Marker.getAll()
+        for marker in markers:
+            # Remove the marker
+            marker.delete()
 
     def actionRemoveAllOtherMarkers_trigger(self, event):
+        """ Callback to remove all markers but the selected one """
         log.info('actionRemoveAllOtherMarkers_trigger')
 
-        marker = Marker.getAll()
-        for m in marker:
-            match = False
-            for marker_id in self.selected_markers:
-                if (m.id == marker_id):
-                    match = True
-                    break
-            if (match == False):
-                # Remove track
-                m.delete()
+        # Determine the ID of the selected marker
+        selected_marker_id = self.selected_markers[0]
+        
+        # Iterate over all defined markers
+        markers = Marker.getAll()
+        for marker in markers:
+            # If this is not the selected marker
+            if (marker.id != selected_marker_id):
+                # Remove the marker
+                marker.delete()
 
+    def actionRenameMarker_trigger(self, event):
+        """ Callback to rename a marker"""
+        log.info('actionRenameMarker_trigger')
+
+        # Get translation function
+        _ = get_app()._tr
+
+        # Retrieve the marker object
+        marker_id = self.selected_markers[0]
+        selected_marker = Marker.get(id=marker_id)
+        
+        # Get the current marker name
+        current_marker_name = selected_marker.data["label"]
+
+        # Get the new name from the user
+        new_marker_name, ok = QInputDialog.getText(self, _('Rename Marker'), _('Marker Name:'), text=current_marker_name)
+        
+        # Update the marker name
+        if ok:
+            # Update the marker name
+            selected_marker.data["label"] = new_marker_name
+            selected_marker.save()
+
+    def getMarkerName(self, marker_id):
+        """ Returns the name of the indicated marker """
+        log.info('GetMarkerName')
+        
+        label = ""
+        marker = Marker.filter(id=marker_id)
+        for m in marker:
+            label = m.data['label']
+
+        return label
+                
     def actionTimelineZoomIn_trigger(self, event):
         self.sliderZoom.setValue(self.sliderZoom.value() - self.sliderZoom.singleStep())
 

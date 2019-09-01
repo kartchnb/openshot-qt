@@ -1409,6 +1409,18 @@
     <string>Remove All Other Markers</string>
    </property>
   </action>
+  <action name="actionRenameMarker">
+   <property name="icon">
+    <iconset resource="../../images/openshot.qrc">
+     <normaloff>:/icons/Humanity/actions/16/gtk-edit.svg</normaloff>:/icons/Humanity/actions/16/gtk-edit.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Rename Marker</string>
+   </property>
+   <property name="toolTip">
+    <string>Rename this Marker</string>
+   </property>
+  </action>
   <action name="actionAddTrackAbove">
    <property name="icon">
     <iconset theme="list-add" resource="../../images/openshot.qrc">
